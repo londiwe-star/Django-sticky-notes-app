@@ -244,3 +244,6 @@ This project is open source and available for educational purposes.
 
 - Django Documentation
 - Django Community
+
+## repositoty
+   https://github.com/londiwe-star/Django-sticky-notes-app.git
