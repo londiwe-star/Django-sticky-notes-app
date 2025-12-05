@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sticky Notes{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'notes/styles.css' %}">
+</head>
+<body>
+    {% block header %}
+    <header>
+        <nav>
+            <div class="container">
+                <h1><a href="{% url 'note_list' %}">Sticky Notes</a></h1>
+                <ul>
+                    <li><a href="{% url 'note_list' %}">All Notes</a></li>
+                    <li><a href="{% url 'note_create' %}">Create Note</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sticky Notes App</p>
+    </footer>
+</body>
+</html>
+
+

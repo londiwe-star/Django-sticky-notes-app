@@ -1,0 +1,120 @@
+STICKY NOTES APPLICATION - PROJECT STRUCTURE
+
+Root Directory (upwork_project/)
+
+│
+├── design_diagrams/                 # Design documentation (if exists)
+│   ├── use_case_diagram.png        # Shows user interactions
+│   ├── sequence_diagram.png        # Shows request-response flow
+│   └── class_diagram.png           # Shows model relationships
+│
+├── sticky_notes/                    # Django project directory
+│   ├── manage.py                   # Django management script
+│   │
+│   ├── sticky_notes/               # Core project configuration
+│   │   ├── __init__.py
+│   │   ├── settings.py            # Project settings
+│   │   ├── urls.py                # Main URL configuration
+│   │   ├── wsgi.py                # WSGI configuration
+│   │   └── asgi.py                # ASGI configuration
+│   │
+│   ├── notes/                      # Main application
+│   │   ├── migrations/            # Database migrations
+│   │   │   ├── __init__.py
+│   │   │   ├── 0001_initial.py   # Initial migration
+│   │   │   └── 0002_alter_note_title.py  # Title field update
+│   │   │
+│   │   ├── static/                # Static files
+│   │   │   └── notes/
+│   │   │       └── styles.css    # Application CSS
+│   │   │
+│   │   ├── templates/             # HTML templates
+│   │   │   ├── base.html         # Base template
+│   │   │   └── notes/            # App-specific templates
+│   │   │       ├── notes_list.html
+│   │   │       ├── note_detail.html
+│   │   │       ├── note_form.html
+│   │   │       └── note_confirm_delete.html
+│   │   │
+│   │   ├── __init__.py
+│   │   ├── admin.py              # Admin configuration
+│   │   ├── apps.py               # App configuration
+│   │   ├── forms.py              # Form definitions
+│   │   ├── models.py             # Data models (Note model)
+│   │   ├── tests.py              # Unit tests
+│   │   ├── urls.py               # App URL patterns
+│   │   └── views.py              # View functions
+│   │
+│   └── db.sqlite3                 # Development database (not in git)
+│
+├── staticfiles/                    # Collected static files (not in git)
+│
+├── research_answers.txt            # Research findings (if exists)
+├── MANUAL_TESTING_CHECKLIST.md    # Testing documentation
+├── README.md                       # Project documentation
+├── .gitignore                      # Git ignore rules
+├── requirements.txt                # Python dependencies
+└── PROJECT_STRUCTURE.txt           # This file
+
+Key Components Explanation:
+
+MVT Architecture Implementation:
+
+Models (models.py): 
+    - Note model with fields: title, content, created_at, updated_at
+    - Custom NoteManager with get_recent() method
+    - Meta class with ordering by updated_at descending
+
+Views (views.py): 
+    - Function-based views for CRUD operations:
+      * note_list: Display all notes
+      * note_detail: Display single note
+      * note_create: Create new note
+      * note_update: Update existing note
+      * note_delete: Delete note
+    - Uses Django messages framework for user feedback
+    - Proper error handling with get_object_or_404
+
+Templates (templates/): 
+    - Base template with header, footer, and message display
+    - Template inheritance for consistent layout
+    - Uses Django template tags ({% url %}, {% csrf_token %}, etc.)
+    - Responsive design with CSS
+
+URL Routing:
+
+Main urls.py (sticky_notes/urls.py): 
+    - Routes to admin and includes app URLs
+
+App urls.py (notes/urls.py): 
+    - Maps URLs to views:
+      * '' -> note_list
+      * 'note/create/' -> note_create
+      * 'note/<int:pk>/' -> note_detail
+      * 'note/<int:pk>/update/' -> note_update
+      * 'note/<int:pk>/delete/' -> note_delete
+
+Forms (forms.py):
+    - NoteForm: ModelForm for creating/updating notes
+    - Custom widgets with Bootstrap classes
+    - Field labels and placeholders
+
+Static Files:
+    - CSS files for styling
+    - Served during development by Django
+    - Collected to staticfiles/ for production
+
+Testing:
+    - Comprehensive unit tests in tests.py
+    - Tests for models, views, forms, URLs, and integration
+    - Manual testing checklist
+
+Admin Interface:
+    - Note model registered in admin
+    - Custom admin configuration with list_display, list_filter, search_fields
+
+Database:
+    - SQLite for development
+    - PostgreSQL support via dj-database-url for production
+    - Migrations track schema changes
+

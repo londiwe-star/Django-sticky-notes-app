@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ note.title }} - Sticky Notes{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="note-detail">
+        <div class="note-header">
+            <h2>{{ note.title }}</h2>
+            <div class="note-actions">
+                <a href="{% url 'note_update' note.pk %}" class="btn">Edit</a>
+                <a href="{% url 'note_delete' note.pk %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+        <div class="note-meta">
+            <p><strong>Created:</strong> {{ note.created_at|date:"F d, Y at H:i" }}</p>
+            <p><strong>Last Updated:</strong> {{ note.updated_at|date:"F d, Y at H:i" }}</p>
+        </div>
+        <div class="note-content">
+            {{ note.content|linebreaks }}
+        </div>
+        <div class="note-footer">
+            <a href="{% url 'note_list' %}" class="btn">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
